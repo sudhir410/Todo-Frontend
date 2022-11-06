@@ -1,0 +1,75 @@
+.todo_mainContainer{
+    width: 100%;
+    height:100vh;
+}
+.todo_header{
+    width: 100%;
+    height: 13%;
+    border: 3px solid #B5E61D;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding-right: 50px;
+}
+.todo_header p{
+    font-size: 25px;
+    font-weight: bold;
+}
+.todo_container{
+    display: flex;
+    height: 87%;
+}
+
+.todo_sidebar{
+    width: 13%;
+    padding-left: 30px;
+    padding-top: 20px;
+    background-color:#B5E61D;
+   color: White;
+   font-weight: bold;
+   font-size: 20px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+}
+.btn-danger{
+    margin-left: -13px;
+    margin-bottom: 10px;
+}
+.todoname{
+    font-size: 25px;
+}
+.todo_sidebar div .History{
+    
+    padding-left: 20px;
+}
+.todo_todoContainer{
+    display: flex;
+    gap: 50px;
+    flex-direction: column;
+    width: 87%;
+    height: 87%;
+}
+.todo_addactivity{
+    
+    display: flex;
+    justify-content: right;
+    
+}
+.taskstarter{
+    cursor: pointer;
+    
+    font-size: 17px;
+}
+.end{
+ 
+    cursor: pointer;
+}
+.historydata{
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+.History{
+    color: black;
+}

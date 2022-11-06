@@ -1,0 +1,26 @@
+.activityContainer {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(0px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(22, 22, 22, 0.5);
+    width: 100%;
+   
+}
+.activityContainer div {
+    width: 350px;
+    background-color: aquamarine;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.activityContainer div p{
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: 600;
+    font-size: 18px;
+}
