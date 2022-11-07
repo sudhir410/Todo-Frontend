@@ -13,7 +13,7 @@ function Todo() {
   const [sec, setsec] = useState(0)
   const [min, setMin] = useState(0)
   const [hour, setHour] = useState(0)
-  // const [hide, setHide] = useState(true)
+  const [hide, setHide] = useState(true)
 
 
 
@@ -79,22 +79,20 @@ function Todo() {
 
     setInterval(() => {
       setsec(sec + 1)
-      if (sec === 60) {
-        setMin(min + 1)
-        setsec(0)
-      }
-      if (min === 60) {
-        setMin(0)
-        setHour(hour + 1)
-      }
+
     }, 1000)
   }
+  if (sec === 60) {
+    setMin(min + 1)
+    setsec(0)
+  }
+  if (min === 60) {
 
+    setHour(hour + 1)
+    setMin(0)
+  }
+  let time = `0${hour}:0${min}:${sec}`
   const endTask = (e) => {
-
-
-
-    let time = `0${hour}:0${min}:${sec}`
     fetch('https://todoapp10x.herokuapp.com/todoListUpdateStop', {
       method: 'post',
       headers: {
@@ -110,6 +108,14 @@ function Todo() {
     })
   }
 
+  const pause = () => {
+    setHide(false)
+    setOn(false)
+  }
+  const resume = () => {
+    setOn(true)
+    setHide(true)
+  }
   return (
     <div className='todo_mainContainer'>
       <header className='todo_header'>
@@ -146,7 +152,7 @@ function Todo() {
                   <th scope="col">Activity</th>
                   <th scope="col">Status</th>
                   <th scope="col">Time Taken(Hrs:Min:Sec)</th>
-                  <th scope="col">Action</th>
+                  <th className='action' scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -156,13 +162,16 @@ function Todo() {
 
                     <tr key={i}>
                       <th scope="row">{data.activity.toUpperCase()}</th>
-                      <td>{data.status}</td>
+                      <td>{hide ? data.status : "pending"}</td>
                       <td>{data.time_taken}</td>
                       {<td>
 
                         {data.status === "pending" ? <button className='taskstarter' id={data._id} onClick={(e) => starttask(e)}>Start</button> : ""}
-
-                        {data.status === "ongoing" ? <button id={data._id} onClick={(e) => { endTask(e) }} className='end btn btn-danger'>end</button> : ''}
+                        <div className='pause'>
+                          {hide && data.status === "ongoing" ? <button id={data._id} onClick={(e) => { endTask(e) }} className='end btn btn-danger'>end</button> : ''}
+                          {hide && data.status === "ongoing" ? <button id={data._id} onClick={(e) => { pause(e) }} className='end '>pause</button> : ''}
+                        </div>
+                        {!hide && data.status !== "pending" && data.status !== "completed" && < button id={data._id} onClick={(e) => { resume(e) }} className='end '>Resume</button>}
                       </td>}
                     </tr>
                   ))
@@ -172,7 +181,7 @@ function Todo() {
           </div>
 
         </section>
-      </div>
+      </div >
       {
         addToggle && <AddActivity setAddToggle={setAddToggle} addToggle={addToggle} />
       }

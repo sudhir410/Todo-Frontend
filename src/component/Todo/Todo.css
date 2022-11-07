@@ -73,3 +73,17 @@
 .History{
     color: black;
 }
+.pause{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.pause button{
+    width: 150px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+}
+.action{
+    text-indent: 280px;
+}
