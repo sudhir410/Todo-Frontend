@@ -75,7 +75,7 @@ function Todo() {
     }
   }
 
-  let time = `${hour<10?"0"+hour:hour}:0${min<10?"0"+min:min}:${sec<10?"10"+sec:sec}`
+  let time = `${hour < 10 ? "0" + hour : hour}:0${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}`
   let timer;
   useEffect(() => {
     if (on) {
