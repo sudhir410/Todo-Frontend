@@ -75,23 +75,29 @@ function Todo() {
     }
   }
 
-  if (on) {
-
-    setInterval(() => {
-      setsec(sec + 1)
-
-    }, 1000)
-  }
-  if (sec === 60) {
-    setMin(min + 1)
-    setsec(0)
-  }
-  if (min === 60) {
-
-    setHour(hour + 1)
-    setMin(0)
-  }
   let time = `0${hour}:0${min}:${sec}`
+  let timer;
+  useEffect(() => {
+    if (on) {
+
+      timer = setInterval(() => {
+        setsec(sec + 1)
+        if (sec === 59) {
+          setMin(min + 1)
+          setsec(0)
+        }
+        if (min === 59) {
+
+          setHour(hour + 1)
+          setMin(0)
+        }
+      }, 1000)
+
+    }
+    return () => clearInterval(timer)
+
+  })
+
   const endTask = (e) => {
     fetch('https://todoapp10x.herokuapp.com/todoListUpdateStop', {
       method: 'post',
@@ -105,12 +111,16 @@ function Todo() {
     }).then(res => res.json()).then(data => {
       setStart('')
       setOn(false)
+      setsec(0)
+      setMin(0)
+      setHour(0)
     })
   }
 
   const pause = () => {
     setHide(false)
     setOn(false)
+    setStart('')
   }
   const resume = () => {
     setOn(true)
@@ -163,7 +173,7 @@ function Todo() {
                     <tr key={i}>
                       <th scope="row">{data.activity.toUpperCase()}</th>
                       <td>{hide ? data.status : "pending"}</td>
-                      <td>{data.time_taken}</td>
+                      <td>{data.status === "completed" ? data.time_taken : data.status === "ongoing" ? `${hour}:${min}:${sec}` : '0:0:0'}</td>
                       {<td>
 
                         {data.status === "pending" ? <button className='taskstarter' id={data._id} onClick={(e) => starttask(e)}>Start</button> : ""}
