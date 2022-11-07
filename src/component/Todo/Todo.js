@@ -75,7 +75,7 @@ function Todo() {
     }
   }
 
-  let time = `0${hour}:0${min}:${sec}`
+  let time = `${hour<10?"0"+hour:hour}:0${min<10?"0"+min:min}:${sec<10?"10"+sec:sec}`
   let timer;
   useEffect(() => {
     if (on) {
@@ -173,7 +173,7 @@ function Todo() {
                     <tr key={i}>
                       <th scope="row">{data.activity.toUpperCase()}</th>
                       <td>{hide ? data.status : "pending"}</td>
-                      <td>{data.status === "completed" ? data.time_taken : data.status === "ongoing" ? `${hour}:${min}:${sec}` : '0:0:0'}</td>
+                      <td>{data.status === "completed" ? data.time_taken : data.status === "ongoing" ? `${hour < 10 ? '0' + hour : hour}:${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}` : '00:00:00'}</td>
                       {<td>
 
                         {data.status === "pending" ? <button className='taskstarter' id={data._id} onClick={(e) => starttask(e)}>Start</button> : ""}
